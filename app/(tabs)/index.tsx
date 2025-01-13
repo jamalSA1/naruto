@@ -2,7 +2,14 @@ import ListEmptyComponent from "@/components/ListEmptyComponent";
 import NarutoItem from "@/components/NarutoItem";
 import { Characters, Films } from "@/types/interface";
 import { useState, useEffect } from "react";
-import { Text, View, StyleSheet, FlatList, RefreshControl } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  SafeAreaView
+} from "react-native";
 
 export default function Index() {
   const [naruto, setNaruto] = useState<Characters[]>([]);
@@ -36,27 +43,29 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        style={{ width: "100%" }}
-        keyExtractor={item => item.id.toString()}
-        data={naruto}
-        renderItem={({ item }) => <NarutoItem item={item} />}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor="black"
-          />
-        }
-        ListEmptyComponent={
-          <ListEmptyComponent
-            loading={loading}
-            message="No characters found please refresh"
-          />
-        }
-      />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <FlatList
+          style={{ width: "100%" }}
+          keyExtractor={item => item.id.toString()}
+          data={naruto}
+          renderItem={({ item }) => <NarutoItem item={item} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="black"
+            />
+          }
+          ListEmptyComponent={
+            <ListEmptyComponent
+              loading={loading}
+              message="No characters found please refresh"
+            />
+          }
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 50,
+    // marginTop: 50,
     width: "100%"
   }
 });
