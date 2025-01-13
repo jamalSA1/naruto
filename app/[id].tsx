@@ -1,6 +1,6 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { Characters } from "@/types/interface";
 import DetailPage from "@/components/DetailPage";
 import AsyncStorage from "@react-native-async-storage/async-storage";

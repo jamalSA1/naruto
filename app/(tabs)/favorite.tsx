@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { Characters } from "@/types/interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FAVORITE_KEY } from "@/constants/keys";
+import ListEmptyComponent from "@/components/ListEmptyComponent";
 
 export default function Page() {
   const [favorites, setFavorites] = useState<Characters[]>([]);
@@ -50,7 +51,6 @@ export default function Page() {
         FAVORITE_KEY,
         JSON.stringify(updatedFavorites)
       );
-      console.log("updatedFavorites");
     } catch (error) {
       console.error("error", error);
     }
@@ -60,7 +60,7 @@ export default function Page() {
     return (
       <View>
         <Text style={styles.text}>
-          {favorites.length > 0 ? item.name : "no item"}
+          {item.name}
         </Text>
         <TouchableOpacity onPress={() => removeFavorite(item)}>
           <Text>Remove</Text>
@@ -75,6 +75,8 @@ export default function Page() {
         data={favorites}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
+        ListEmptyComponent={() =>
+          <ListEmptyComponent loading={false} message="No favorites" />}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
