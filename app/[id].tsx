@@ -42,7 +42,8 @@ export default function Page() {
 
       if (favorites) {
         const favoritesCharacters = JSON.parse(favorites) as Characters[];
-        setIsFavorite(favoritesCharacters.some(fav => fav.id === character.id));
+        const isFavorite = favoritesCharacters.some(fav => fav.id === character.id);
+        setIsFavorite(isFavorite);
       }
     } catch (error) {
       console.error("error", error);

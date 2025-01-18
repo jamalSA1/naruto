@@ -43,7 +43,7 @@ export default function Index() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#0C0C0C" }}>
       <View style={styles.container}>
         <FlatList
           style={{ width: "100%" }}

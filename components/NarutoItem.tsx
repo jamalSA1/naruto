@@ -3,7 +3,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Image
 } from "react-native";
 import { BlurView } from "expo-blur";
 import React from "react";
@@ -19,11 +20,36 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
             source={{ uri: item.images[0] }}
             style={styles.image}
           >
-            <View style={styles.nameContainer}>
-              <Text style={styles.name}>
-                {item.name}
-              </Text>
-              <Text style={styles.view}>View</Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: 10,
+                height: "10%",
+                width: "60%",
+                marginHorizontal: 20,
+                marginTop: 20
+              }}
+            >
+              <BlurView
+                intensity={50}
+                tint="dark"
+                blurReductionFactor={50}
+                style={[styles.nameContainer, { borderRadius: 50 }]}
+              >
+                <Image
+                  source={{ uri: item.images[1] || item.images[0] }}
+                  style={styles.mainImage}
+                />
+                <Text style={styles.name}>
+                  {item.name}
+                </Text>
+              </BlurView>
+              <View>
+                <Text style={styles.view}>View</Text>
+              </View>
             </View>
           </ImageBackground>
         </View>
@@ -35,45 +61,49 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "baseline",
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#9AA6B270",
-    marginVertical: 10,
+    // marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
-    borderRadius: 10,
-    height: 300,
+    height: 400,
     overflow: "hidden"
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "black"
   },
   nameContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    padding: 10,
-    backgroundColor: "#fff",
+    justifyContent: "center",
+    gap: 10,
+    marginHorizontal: 20,
+    marginTop: 10,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     width: "auto",
-    marginTop: 220,
-    marginHorizontal: 10,
-    borderRadius: 50,
-    paddingHorizontal: 20,
-    paddingVertical: 10
+    // height: "15%",
+    overflow: "hidden"
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "light",
+    color: "white",
+    height: "100%",
+    width: "100%"
   },
   image: {
     width: "100%",
-    height: "100%"
+    height: "100%",
+    borderRadius: 30,
+    overflow: "hidden"
   },
   view: {
     fontSize: 13,
     color: "#BCCCDC"
+  },
+  mainImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 50
   }
 });
 
