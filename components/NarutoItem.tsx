@@ -18,19 +18,7 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
             contentFit="cover"
             onLoad={() => {}}
           />
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 10,
-              height: "10%",
-              width: "60%",
-              marginHorizontal: 20,
-              marginTop: 20
-            }}
-          >
+          <View style={styles.rowContainer}>
             <BlurView
               intensity={50}
               tint="dark"
@@ -47,6 +35,7 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
                 {item.name}
               </Text>
             </BlurView>
+            <View style={{ flex: 0.8 }} />
             <View style={styles.viewContainer}>
               <Ionicons name="eye-outline" size={20} color="#9AA6B2" />
             </View>
@@ -61,34 +50,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "baseline",
-    // marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
     height: 400,
     overflow: "hidden"
   },
+  rowContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: 5,
+    marginTop: 10
+  },
   nameContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     gap: 10,
-    marginHorizontal: -5,
-    marginTop: 5,
-    paddingHorizontal: "15%",
+    paddingHorizontal: 10,
     paddingVertical: 10,
-    marginRight: "20%",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
-    width: "auto",
-    // height: "15%",
+    borderRadius: 50,
     overflow: "hidden"
   },
   name: {
     fontSize: 16,
-    fontWeight: "light",
+    fontWeight: "400",
     color: "white",
-    height: "100%",
-    width: "100%"
+    marginRight: 10
   },
   backgroundImage: {
     position: "absolute",

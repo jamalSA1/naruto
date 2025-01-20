@@ -22,7 +22,7 @@ export default function DetailPage({ character }: { character: Characters }) {
             {character.personal.sex || "Unknown"}
           </Text>
           <Text style={styles.rating}>
-            🏞 {character.personal.clan}
+            🏞 {character.personal.clan || "There is no clan"}
           </Text>
 
           <View style={styles.tabs}>
