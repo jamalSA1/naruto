@@ -13,9 +13,17 @@ export default function DetailPage({ character }: { character: Characters }) {
             source={{ uri: character.images[0] }}
             style={styles.mainImage}
           />
-          <Text style={styles.title}>Karuko's Basketball</Text>
-          <Text style={styles.details}>2012–2014 • 黒子のバスケ</Text>
-          <Text style={styles.rating}>⭐ 4.4</Text>
+          <Text style={styles.title}>
+            {character.name}
+          </Text>
+          <Text style={styles.details}>
+            {character.personal.birthdate || "Unknown"} •{" "}
+            {/* {character.personal.titles?.[0] || "Unknown"} */}
+            {character.personal.sex || "Unknown"}
+          </Text>
+          <Text style={styles.rating}>
+            🏞 {character.personal.clan}
+          </Text>
 
           <View style={styles.tabs}>
             <Text style={[styles.tab, styles.activeTab]}>General</Text>
@@ -36,8 +44,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   meshGradient: {
-    ...StyleSheet.absoluteFillObject, // لتغطية الشاشة بالكامل
-    zIndex: -1 // لإظهار التدرج خلف المحتوى
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1
   },
 
   contentContainer: {

@@ -10,6 +10,13 @@ export interface Characters {
     adoptiveSon?: string;
     godfather?: string;
   };
+  natureType: string[];
+  personal: {
+    birthdate: string;
+    sex: string;
+    titles: string[];
+    clan: string;
+  };
   images: string[];
 }
 
