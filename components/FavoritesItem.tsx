@@ -20,7 +20,7 @@ export default function FavoritesItem({
         <TouchableOpacity>
           <Image
             source={{ uri: items.images[0] }}
-            style={{ width: 180, height: 200, borderRadius: 20 }}
+            style={{ width: 180, height: 200, borderRadius: 30 }}
             transition={1000}
           />
         </TouchableOpacity>
@@ -35,15 +35,20 @@ export default function FavoritesItem({
 const styles = StyleSheet.create({
   gridContainer: {
     marginHorizontal: 5,
-    marginVertical: 5,
+    marginVertical: 10,
     position: "relative",
-    borderRadius: 20
+    borderRadius: 20,
+    shadowColor: "#B7B7B7",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5.84,
+    elevation: 5
   },
   trashIcon: {
     position: "absolute",
-    top: 8,
+    top: "75%",
     right: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#F4F6FF",
     borderRadius: 100,
     padding: 10
   }

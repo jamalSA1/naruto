@@ -59,6 +59,7 @@ export default function Page() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Your Favorite. ✨</Text>
       <FlatList
         data={favorites}
         keyExtractor={item => item.id.toString()}
@@ -92,10 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  text: {
-    fontSize: 20,
+  title: {
+    fontSize: 25,
     fontWeight: "bold",
-    color: "#000",
-    marginTop: 50
+    color: "#fff",
+    marginVertical: 15,
+    alignSelf: "flex-start",
+    marginLeft: 20
   }
 });
