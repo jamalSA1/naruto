@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "starsapp",
-    "slug": "starsapp",
+    "name": "narutoapp",
+    "slug": "narutoapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,19 +9,21 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ertari90.narutoapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#0C0C0C"
+      },
+      "package": "com.ertari90.narutoapp"
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
+    // "web": {
+    //   "bundler": "metro",
+    //   "output": "static",
+    //   "favicon": "./assets/images/favicon.png"
+    // },
     "plugins": [
       "expo-router",
       [
@@ -30,7 +32,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#0C0C0C"
         }
       ]
     ],

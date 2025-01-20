@@ -12,6 +12,7 @@ import { Characters } from "@/types/interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FAVORITE_KEY } from "@/constants/keys";
 import ListEmptyComponent from "@/components/ListEmptyComponent";
+import FavoritesItem from "@/components/FavoritesItem";
 
 export default function Page() {
   const [favorites, setFavorites] = useState<Characters[]>([]);
@@ -56,25 +57,17 @@ export default function Page() {
     }
   };
 
-  const renderItem = ({ item }: { item: Characters }) => {
-    return (
-      <View>
-        <Text style={styles.text}>
-          {item.name}
-        </Text>
-        <TouchableOpacity onPress={() => removeFavorite(item)}>
-          <Text>Remove</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={favorites}
+        style={styles.itemContainer}
         keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
+        renderItem={({ item }) =>
+          <FavoritesItem
+            item={item}
+            removeFavorite={() => removeFavorite(item)}
+          />}
         ListEmptyComponent={() =>
           <ListEmptyComponent loading={false} message="No favorites" />}
         refreshControl={
@@ -85,6 +78,7 @@ export default function Page() {
           />
         }
       />
+      {/* </View> */}
     </SafeAreaView>
   );
 }
@@ -92,9 +86,16 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eee",
+    flexDirection: "column",
+    gap: 10,
+    backgroundColor: "#0C0C0C",
     justifyContent: "center",
     alignItems: "center"
+  },
+  itemContainer: {
+    backgroundColor: "#fff",
+    width: "100%",
+    padding: 10
   },
   text: {
     fontSize: 20,

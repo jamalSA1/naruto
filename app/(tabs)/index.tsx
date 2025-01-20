@@ -54,7 +54,7 @@ export default function Index() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              tintColor="black"
+              tintColor="#F5F5F5"
             />
           }
           ListEmptyComponent={
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     // marginTop: 50,
-    width: "100%"
+    width: "100%",
+    backgroundColor: "#0C0C0C"
   }
 });

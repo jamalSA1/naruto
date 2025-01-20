@@ -1,13 +1,33 @@
-import { Stack, Tabs } from "expo-router";
+import { router, Stack, Tabs } from "expo-router";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="[id]"
-        options={{ headerShown: false, presentation: "formSheet" }}
-      />
-    </Stack>
+    <ThemeProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="[id]"
+          options={{
+            headerShown: true,
+            headerLargeTitleShadowVisible: false,
+            headerTitle: "Character Details",
+            headerTintColor: "#F5F5F5",
+            headerStyle: { backgroundColor: "#191919" },
+            headerTitleAlign: "center",
+            headerLeft: () =>
+              <TouchableOpacity
+                onPress={() => {
+                  router.back();
+                }}
+              >
+                <Ionicons name="arrow-back" size={24} color="#F5F5F5" />
+              </TouchableOpacity>
+          }}
+        />
+      </Stack>
+    </ThemeProvider>
   );
 }

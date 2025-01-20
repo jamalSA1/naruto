@@ -10,6 +10,8 @@ import { BlurView } from "expo-blur";
 import React from "react";
 import { Characters } from "@/types/interface";
 import { Link } from "expo-router";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import FavoriteIcon from "./FavoriteIcon";
 
 const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
   return (
@@ -47,8 +49,8 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
                   {item.name}
                 </Text>
               </BlurView>
-              <View>
-                <Text style={styles.view}>View</Text>
+              <View style={styles.viewContainer}>
+                <Ionicons name="eye-outline" size={20} color="#9AA6B2" />
               </View>
             </View>
           </ImageBackground>
@@ -74,10 +76,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
-    marginHorizontal: 20,
-    marginTop: 10,
-    paddingHorizontal: 30,
+    marginHorizontal: -5,
+    marginTop: 5,
+    paddingHorizontal: "15%",
     paddingVertical: 10,
+    marginRight: "20%",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
     width: "auto",
     // height: "15%",
@@ -96,13 +99,19 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: "hidden"
   },
-  view: {
-    fontSize: 13,
-    color: "#BCCCDC"
-  },
   mainImage: {
     width: 30,
     height: 30,
+    borderRadius: 50
+  },
+  viewContainer: {
+    marginLeft: 20,
+    backgroundColor: "white",
+    height: 40,
+    width: "auto",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 50
   }
 });

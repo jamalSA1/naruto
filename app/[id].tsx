@@ -1,11 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { Characters } from "@/types/interface";
 import DetailPage from "@/components/DetailPage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { FAVORITE_KEY } from "@/constants/keys";
+import FavoriteIcon from "@/components/FavoriteIcon";
 
 export default function Page() {
   const { id } = useLocalSearchParams();
@@ -76,18 +77,20 @@ export default function Page() {
   }
 
   if (!character) {
-    return <Text style={styles.initialText}>Character not found</Text>;
+    return (
+      <View style={{ flex: 1, backgroundColor: "#0C0C0C" }}>
+        <Text style={styles.initialText}>Character not found</Text>
+      </View>
+    );
   }
 
   return (
-    <View>
-      <TouchableOpacity onPress={toggleFavorite}>
-        <Ionicons
-          name={isFavorite ? "heart" : "heart-outline"}
-          size={24}
-          color={isFavorite ? "red" : "black"}
-        />
-      </TouchableOpacity>
+    <View style={{ flex: 1, backgroundColor: "#0C0C0C" }}>
+      <Stack.Screen
+        options={{
+          headerRight: () => <FavoriteIcon isFavorite={isFavorite} toggleFavorite={toggleFavorite} />
+        }}
+      />
       <DetailPage character={character} />
     </View>
   );
@@ -98,6 +101,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginTop: 250,
-    color: "gray"
+    color: "#F5F5F5"
   }
 });
