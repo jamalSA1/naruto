@@ -61,11 +61,10 @@ export default function Page() {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={favorites}
-        style={styles.itemContainer}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <FavoritesItem
-            item={item}
+            items={item}
             removeFavorite={() => removeFavorite(item)}
           />}
         ListEmptyComponent={() =>
@@ -77,6 +76,7 @@ export default function Page() {
             tintColor="black"
           />
         }
+        numColumns={2}
       />
       {/* </View> */}
     </SafeAreaView>
@@ -91,11 +91,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0C0C0C",
     justifyContent: "center",
     alignItems: "center"
-  },
-  itemContainer: {
-    backgroundColor: "#fff",
-    width: "100%",
-    padding: 10
   },
   text: {
     fontSize: 20,

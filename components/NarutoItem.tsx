@@ -1,59 +1,56 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Characters } from "@/types/interface";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import FavoriteIcon from "./FavoriteIcon";
+import { Image } from "expo-image";
 
 const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
   return (
     <Link href={`/${item.id}`} asChild>
       <TouchableOpacity>
         <View style={styles.container}>
-          <ImageBackground
+          <Image
             source={{ uri: item.images[0] }}
-            style={styles.image}
+            style={styles.backgroundImage}
+            transition={1000}
+            contentFit="cover"
+            onLoad={() => {}}
+          />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 10,
+              height: "10%",
+              width: "60%",
+              marginHorizontal: 20,
+              marginTop: 20
+            }}
           >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: 10,
-                height: "10%",
-                width: "60%",
-                marginHorizontal: 20,
-                marginTop: 20
-              }}
+            <BlurView
+              intensity={50}
+              tint="dark"
+              blurReductionFactor={50}
+              style={[styles.nameContainer, { borderRadius: 50 }]}
             >
-              <BlurView
-                intensity={50}
-                tint="dark"
-                blurReductionFactor={50}
-                style={[styles.nameContainer, { borderRadius: 50 }]}
-              >
-                <Image
-                  source={{ uri: item.images[1] || item.images[0] }}
-                  style={styles.mainImage}
-                />
-                <Text style={styles.name}>
-                  {item.name}
-                </Text>
-              </BlurView>
-              <View style={styles.viewContainer}>
-                <Ionicons name="eye-outline" size={20} color="#9AA6B2" />
-              </View>
+              <Image
+                source={{
+                  uri: item.images[1] || item.images[0]
+                }}
+                style={styles.mainImage}
+              />
+              <Text style={styles.name}>
+                {item.name}
+              </Text>
+            </BlurView>
+            <View style={styles.viewContainer}>
+              <Ionicons name="eye-outline" size={20} color="#9AA6B2" />
             </View>
-          </ImageBackground>
+          </View>
         </View>
       </TouchableOpacity>
     </Link>
@@ -93,7 +90,8 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
-  image: {
+  backgroundImage: {
+    position: "absolute",
     width: "100%",
     height: "100%",
     borderRadius: 30,
