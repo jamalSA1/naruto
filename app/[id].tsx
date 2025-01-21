@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Characters } from "@/types/interface";
@@ -73,19 +73,23 @@ export default function Page() {
   };
 
   if (loading) {
-    return <Text style={styles.initialText}>Loading...</Text>;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="white" style={styles.loading} />
+      </View>
+    );
   }
 
   if (!character) {
     return (
-      <View style={{ flex: 1, backgroundColor: "#0C0C0C" }}>
+      <View style={styles.container}>
         <Text style={styles.initialText}>Character not found</Text>
       </View>
     );
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#0C0C0C" }}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           headerRight: () => <FavoriteIcon isFavorite={isFavorite} toggleFavorite={toggleFavorite} />
@@ -97,6 +101,13 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#0C0C0C",
+  },
+  loading: {
+    marginTop: 250
+  },
   initialText: {
     fontSize: 20,
     textAlign: "center",

@@ -7,7 +7,8 @@ import {
   StyleSheet,
   FlatList,
   RefreshControl,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 
@@ -31,14 +32,20 @@ export default function Index() {
   });
 
   if (isLoading) {
-    return <Text style={styles.loading}>Loading...</Text>;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="white" style={styles.loading} />
+      </View>
+    );
   }
 
   if (isError) {
     return (
-      <Text style={styles.error}>
-        Error: {error.message}
-      </Text>
+      <View style={styles.container}>
+        <Text style={styles.errorText}>
+          Error: {error.message}
+        </Text>
+      </View>
     );
   }
 
@@ -74,18 +81,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // marginTop: 50,
     width: "100%",
     backgroundColor: "#0C0C0C"
   },
-  loading: {
+  errorText: {
     color: "#fff",
     fontSize: 20,
     fontWeight: "bold"
   },
-  error: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "bold"
+  loading: {
+    marginTop: 150
   }
 });
