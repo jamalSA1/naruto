@@ -1,10 +1,55 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
 import { Characters } from "@/types/interface";
 import MeshGradientBackground from "./MeshGradientBackground";
 import { Image } from "expo-image";
 export default function DetailPage({ character }: { character: Characters }) {
+  const [activeTab, setActiveTab] = useState<string | undefined>("Parents");
+
+  const tabs = [
+    { label: "Parents", value: "Parents" },
+    { label: "Name", value: "Name" },
+    { label: "Age", value: "Age" }
+  ];
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Parents":
+        return (
+          <View>
+            <Text style={styles.contentText}>
+              Father: {character.family?.father || "Unknown"}
+            </Text>
+            <Text style={styles.contentText}>
+              Mother: {character.family?.mother || "Unknown"}
+            </Text>
+          </View>
+        );
+      case "Age":
+        return (
+          <View>
+            <Text style={styles.contentText}>
+              Part I: {character.personal.age?.["Part I"] || "Unknown"}
+            </Text>
+            <Text style={styles.contentText}>
+              Part II: {character.personal.age?.["Part II"] || "Unknown"}
+            </Text>
+          </View>
+        );
+      case "Name":
+        return (
+          // <View>
+          <Text style={styles.contentText}>
+            {character.personal.titles?.[0] || "Unknown"}
+          </Text>
+          // </View>
+        );
+      default:
+        return <Text style={styles.contentText}>Select a tab to see content.</Text>;
+    }
+  };
+
   return (
     <MeshGradientBackground>
       <BlurView intensity={70} style={StyleSheet.absoluteFill}>
@@ -18,7 +63,6 @@ export default function DetailPage({ character }: { character: Characters }) {
           </Text>
           <Text style={styles.details}>
             {character.personal.birthdate || "Unknown"} •{" "}
-            {/* {character.personal.titles?.[0] || "Unknown"} */}
             {character.personal.sex || "Unknown"}
           </Text>
           <Text style={styles.rating}>
@@ -26,11 +70,24 @@ export default function DetailPage({ character }: { character: Characters }) {
           </Text>
 
           <View style={styles.tabs}>
-            <Text style={[styles.tab, styles.activeTab]}>General</Text>
-            <Text style={styles.tab}>Cast</Text>
-            <Text style={styles.tab}>Comments</Text>
-            <Text style={styles.tab}>Lists</Text>
+            {tabs.map(tab =>
+              <TouchableOpacity
+                key={tab.value}
+                style={[
+                  styles.tabButton,
+                  activeTab === tab.value && styles.activeTab
+                ]}
+                onPress={() => setActiveTab(tab.value)}
+              >
+                <Text style={styles.tabText}>
+                  {tab.label}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
+          <Text style={styles.content}>
+            {renderContent()}
+          </Text>
         </View>
       </BlurView>
     </MeshGradientBackground>
@@ -86,16 +143,28 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 10
   },
-  tab: {
-    paddingVertical: 5,
+  tabButton: {
+    paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: "#444",
     borderRadius: 20,
-    color: "white",
-    fontSize: 14,
-    textAlign: "center"
+    backgroundColor: "#444",
+    marginBottom: 20
   },
   activeTab: {
     backgroundColor: "#e63946"
+  },
+  tabText: {
+    color: "#FFF",
+    fontWeight: "bold"
+  },
+  content: {
+    padding: 20,
+    backgroundColor: "#222",
+    borderRadius: 10,
+    width: "100%"
+  },
+  contentText: {
+    marginBottom: 10,
+    color: "white"
   }
 });

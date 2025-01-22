@@ -14,6 +14,10 @@ export interface Characters {
   personal: {
     birthdate: string;
     sex: string;
+    age: {
+      "Part I": number;
+      "Part II": number;
+    };
     titles: string[];
     clan: string;
   };
