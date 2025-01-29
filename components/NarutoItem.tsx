@@ -54,24 +54,23 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     alignItems: "baseline",
     marginHorizontal: 10,
-    padding: 5,
-    marginBottom: 10,
+    paddingVertical: 5,
+    marginTop: 10,
     height: 400,
     overflow: "hidden"
   },
   imageWrapper: {
     borderRadius: 30,
     overflow: Platform.OS === "web" ? "visible" : "hidden", // إصلاح المشكلة على الويب
-    width: Platform.OS === "web" ? "60%" : "100%",
-    height: Platform.OS === "web" ? 500 : 400,
+    width: "100%",
+    height: 400,
     position: "absolute"
   },
   backgroundImage: {
-    width: Platform.OS === "web" ? "40%" : "100%",
-    height: Platform.OS === "web" ? 500 : 400,
+    width: "100%",
+    height: 400,
     borderRadius: 30,
     ...Platform.OS === "web" && { clipPath: "inset(0 round 30px)" } // إصلاح الويب
   },
