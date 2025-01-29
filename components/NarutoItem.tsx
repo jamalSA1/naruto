@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform
+} from "react-native";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Characters } from "@/types/interface";
@@ -11,24 +17,24 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
     <Link href={`/${item.id}`} asChild>
       <TouchableOpacity>
         <View style={styles.container}>
-          <Image
-            source={{ uri: item.images[0] }}
-            style={styles.backgroundImage}
-            transition={1000}
-            contentFit="cover"
-            onLoad={() => {}}
-          />
+          <View style={styles.imageWrapper}>
+            <Image
+              source={{ uri: item.images[0] }}
+              style={styles.backgroundImage}
+              transition={1000}
+              contentFit="cover"
+              onLoad={() => {}}
+            />
+          </View>
           <View style={styles.rowContainer}>
             <BlurView
-              intensity={50}
+              intensity={Platform.OS === "web" ? 20 : 50} // تقليل البلور في الويب لتحسين الأداء
               tint="dark"
               blurReductionFactor={50}
-              style={[styles.nameContainer, { borderRadius: 50 }]}
+              style={styles.nameContainer}
             >
               <Image
-                source={{
-                  uri: item.images[1] || item.images[0]
-                }}
+                source={{ uri: item.images[1] || item.images[0] }}
                 style={styles.mainImage}
               />
               <Text style={styles.name}>
@@ -48,15 +54,28 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: "baseline",
     marginHorizontal: 10,
-    padding: 10,
+    padding: 5,
+    marginBottom: 10,
     height: 400,
     overflow: "hidden"
   },
+  imageWrapper: {
+    borderRadius: 30,
+    overflow: Platform.OS === "web" ? "visible" : "hidden", // إصلاح المشكلة على الويب
+    width: Platform.OS === "web" ? "60%" : "100%",
+    height: Platform.OS === "web" ? 500 : 400,
+    position: "absolute"
+  },
+  backgroundImage: {
+    width: Platform.OS === "web" ? "40%" : "100%",
+    height: Platform.OS === "web" ? 500 : 400,
+    borderRadius: 30,
+    ...Platform.OS === "web" && { clipPath: "inset(0 round 30px)" } // إصلاح الويب
+  },
   rowContainer: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -64,7 +83,6 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   nameContainer: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -73,20 +91,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "rgba(0, 0, 0, 0.3)",
     borderRadius: 50,
-    overflow: "hidden"
+    overflow: Platform.OS === "web" ? "visible" : "hidden"
   },
   name: {
     fontSize: 16,
     fontWeight: "400",
     color: "white",
     marginRight: 10
-  },
-  backgroundImage: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    borderRadius: 30,
-    overflow: "hidden"
   },
   mainImage: {
     width: 30,
@@ -97,7 +108,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     backgroundColor: "white",
     height: 40,
-    width: "auto",
     justifyContent: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,

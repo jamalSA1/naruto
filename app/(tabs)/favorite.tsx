@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Characters } from "@/types/interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FAVORITE_KEY } from "@/constants/keys";
 import ListEmptyComponent from "@/components/ListEmptyComponent";
 import FavoritesItem from "@/components/FavoritesItem";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Page() {
   const [favorites, setFavorites] = useState<Characters[]>([]);
@@ -37,11 +38,10 @@ export default function Page() {
     fetchFavorites();
   };
 
-  useEffect(
-    () => {
+  useFocusEffect(
+    useCallback(() => {
       fetchFavorites();
-    },
-    [favorites]
+    }, [])
   );
 
   const removeFavorite = async (item: Characters) => {

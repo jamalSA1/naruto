@@ -16,6 +16,7 @@ const FavoriteIcon = ({
         name={isFavorite ? "heart" : "heart-outline"}
         size={24}
         color={isFavorite ? "red" : "#F5F5F5"}
+        style={{ marginRight: 10 }}
       />
     </TouchableOpacity>
   );
