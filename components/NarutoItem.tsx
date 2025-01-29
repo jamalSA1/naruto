@@ -41,7 +41,9 @@ const NarutoItem: React.FC<{ item: Characters }> = ({ item }) => {
                 {item.name}
               </Text>
             </BlurView>
-            <View style={{ flex: 0.8 }} />
+            <View
+              style={Platform.OS === "web" ? { width: 100 } : { flex: 0.8 }}
+            />
             <View style={styles.viewContainer}>
               <Ionicons name="eye-outline" size={20} color="#9AA6B2" />
             </View>
